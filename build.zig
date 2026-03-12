@@ -15,6 +15,7 @@ pub fn build(b: *std.Build) void {
                 .abi = .gnueabi,
                 .glibc_version = .{ .major = 2, .minor = 25, .patch = 0 }, // std.Io.Threaded.init_single_threaded
             }),
+            .optimize = b.standardOptimizeOption(.{}),
         }),
     });
 
@@ -59,6 +60,8 @@ pub fn build(b: *std.Build) void {
             .target = b.graph.host,
         }),
     });
+
+    // test_exe.root_module.link_libc = true;
 
     const test_install_artifact = b.addInstallArtifact(test_exe, .{
         .dest_dir = .{
