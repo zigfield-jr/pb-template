@@ -13,7 +13,7 @@ pub fn build(b: *std.Build) void {
                 .cpu_model = .{ .explicit = &std.Target.arm.cpu.cortex_a7 },
                 .os_tag = .linux,
                 .abi = .gnueabi,
-                .glibc_version = .{ .major = 2, .minor = 25, .patch = 0 }, // std.Io.Threaded.init_single_threaded
+                .glibc_version = .{ .major = 2, .minor = 34, .patch = 0 },
             }),
             .optimize = b.standardOptimizeOption(.{}),
         }),
@@ -22,7 +22,8 @@ pub fn build(b: *std.Build) void {
     exe.root_module.addIncludePath(b.path("sdk/include"));
     exe.root_module.addIncludePath(b.path("sdk/include/freetype2"));
     exe.root_module.addIncludePath(b.path("sdk/local/include"));
-    exe.root_module.addLibraryPath(b.path("sdk/local/lib"));
+    exe.root_module.addIncludePath(b.path("sdk/local/include/inkview"));
+    exe.root_module.addLibraryPath(b.path("sdk/local/lib_b288"));
     exe.root_module.linkSystemLibrary("hwconfig", .{});
     exe.root_module.linkSystemLibrary("inkview", .{});
     exe.root_module.link_libc = true;

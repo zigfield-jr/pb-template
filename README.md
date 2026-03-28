@@ -1,7 +1,7 @@
 # PocketBook Zig template
 
 [Minimal app(lication)](SDK.pdf) for B288 (or B300) CPU. Includes
-an [SDK 6.5](https://github.com/pocketbook/SDK_6.3.0/tree/6.5/SDK-B288/usr/arm-obreey-linux-gnueabi/sysroot/usr) subset.
+an [SDK 6.10](https://github.com/Sean-on-Git/PocketBook-SDK/releases) subset.
 
 ## USB
 
