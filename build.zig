@@ -109,7 +109,8 @@ const SendTar = struct {
         var threaded: std.Io.Threaded = .init_single_threaded;
         const io = threaded.io();
 
-        var tcp_stream = try std.Io.net.IpAddress.connect(try std.Io.net.IpAddress.parse(send_tar.dest_ip, send_tar.dest_port), io, .{ .mode = .stream });
+        const ip_address = try std.Io.net.IpAddress.parse(send_tar.dest_ip, send_tar.dest_port);
+        var tcp_stream = try std.Io.net.IpAddress.connect(&ip_address, io, .{ .mode = .stream });
         defer tcp_stream.close(io);
         var tcp_buffer: [1024]u8 = undefined;
         var tcp_writer = tcp_stream.writer(io, &tcp_buffer);
