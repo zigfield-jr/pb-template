@@ -1,10 +1,7 @@
 const std = @import("std");
+const iv = @import("inkview");
 
-const c = @cImport({
-    @cInclude("selection_list.h");
-});
-
-var cb = c.SelectionListCallbacks{
+var cb = iv.SelectionListCallbacks{
     .Draw = draw,
     .SelectedItemChanged = selectedItemChanged,
     .ItemClicked = itemClicked,
@@ -12,29 +9,29 @@ var cb = c.SelectionListCallbacks{
     .ItemLongClicked = itemLongClicked,
     .ScrollPositionChanged = scrollPositionChanged,
 };
-var selection_list: ?*c.SelectionList = null;
+var selection_list: ?*iv.SelectionList = null;
 
 fn mainHandler(event_type: c_int, param_one: c_int, param_two: c_int) callconv(.c) c_int {
     switch (event_type) {
-        c.EVT_INIT => {
-            const screen_rect = c.irect{
-                .w = c.ScreenWidth(),
-                .h = c.ScreenHeight(),
+        iv.EVT_INIT => {
+            const screen_rect = iv.irect{
+                .w = iv.ScreenWidth(),
+                .h = iv.ScreenHeight(),
             };
-            selection_list = c.SelectionList_Init(screen_rect, @ptrCast(&cb), null, 100);
-            _ = c.SelectionList_SetItemcount(selection_list, 20);
-            _ = c.SelectionList_UseDraggableScroller(selection_list, 1);
+            selection_list = iv.SelectionList_Init(screen_rect, @ptrCast(&cb), null, 100);
+            _ = iv.SelectionList_SetItemcount(selection_list, 20);
+            _ = iv.SelectionList_UseDraggableScroller(selection_list, 1);
         },
-        c.EVT_SHOW => {
-            _ = c.SelectionList_Draw(selection_list);
-            _ = c.SelectionList_Update(selection_list);
+        iv.EVT_SHOW => {
+            _ = iv.SelectionList_Draw(selection_list);
+            _ = iv.SelectionList_Update(selection_list);
         },
-        c.EVT_POINTERUP, c.EVT_POINTERDOWN, c.EVT_POINTERMOVE, c.EVT_POINTERLONG, c.EVT_POINTERHOLD, c.EVT_POINTERDRAG, c.EVT_POINTERCANCEL, c.EVT_POINTERCHANGED => {
-            _ = c.SelectionList_HandleEvent(selection_list, event_type, param_one, param_two);
+        iv.EVT_POINTERUP, iv.EVT_POINTERDOWN, iv.EVT_POINTERMOVE, iv.EVT_POINTERLONG, iv.EVT_POINTERHOLD, iv.EVT_POINTERDRAG, iv.EVT_POINTERCANCEL, iv.EVT_POINTERCHANGED => {
+            _ = iv.SelectionList_HandleEvent(selection_list, event_type, param_one, param_two);
         },
-        c.EVT_KEYPRESS => {
-            c.SelectionList_Destroy(selection_list);
-            c.CloseApp();
+        iv.EVT_KEYPRESS => {
+            iv.SelectionList_Destroy(selection_list);
+            iv.CloseApp();
         },
         else => {},
     }
@@ -42,21 +39,21 @@ fn mainHandler(event_type: c_int, param_one: c_int, param_two: c_int) callconv(.
     return 0;
 }
 
-fn draw(_: ?*anyopaque, _: c_int, item_rect: c.irect, _: c_int, is_touched: c_int) callconv(.c) void {
-    _ = c.FillArea(item_rect.x + 20, item_rect.y + 10, item_rect.w - 40, item_rect.h - 20, if (is_touched != 0) c.DGRAY else c.LGRAY);
+fn draw(_: ?*anyopaque, _: c_int, item_rect: iv.irect, _: c_int, is_touched: c_int) callconv(.c) void {
+    _ = iv.FillArea(item_rect.x + 20, item_rect.y + 10, item_rect.w - 40, item_rect.h - 20, if (is_touched != 0) iv.DGRAY else iv.LGRAY);
 }
 
 fn selectedItemChanged(_: ?*anyopaque, _: c_int) callconv(.c) void {}
 
 fn itemClicked(_: ?*anyopaque, _: c_int, _: c_int, _: c_int) callconv(.c) void {}
 
-fn drawStaticElements(_: ?*anyopaque, _: c.irect) callconv(.c) void {}
+fn drawStaticElements(_: ?*anyopaque, _: iv.irect) callconv(.c) void {}
 
 fn itemLongClicked(_: ?*anyopaque, _: c_int, _: c_int, _: c_int) callconv(.c) void {}
 
 fn scrollPositionChanged(_: ?*anyopaque, _: c_int, _: c_int) callconv(.c) void {}
 
 pub fn main() !void {
-    c.SetCurrentApplicationAttribute(c.APPLICATION_READER, 1); // hide context menu
-    c.InkViewMain(mainHandler);
+    iv.SetCurrentApplicationAttribute(iv.APPLICATION_READER, 1); // hide context menu
+    iv.InkViewMain(mainHandler);
 }

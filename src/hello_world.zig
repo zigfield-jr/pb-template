@@ -1,27 +1,22 @@
 const std = @import("std");
+const iv = @import("inkview");
 
-const c = @cImport({
-    @cInclude("inkview.h");
-});
-
-const font_size: c_int = 40;
-
-var font: [*c]c.ifont = null;
+var font: [*c]iv.ifont = null;
 
 fn mainHandler(event_type: c_int, _: c_int, _: c_int) callconv(.c) c_int {
     switch (event_type) {
-        c.EVT_INIT => {
-            font = c.OpenFont("LiberationSans", font_size, 1);
-            c.SetFont(font, c.BLACK);
+        iv.EVT_INIT => {
+            font = iv.OpenFont("LiberationSans", 40, 1);
+            iv.SetFont(font, iv.BLACK);
         },
-        c.EVT_SHOW => {
-            c.ClearScreen();
-            _ = c.DrawTextRect(0, 0, c.ScreenWidth(), c.ScreenHeight(), "Hello, world!", c.ALIGN_CENTER | c.VALIGN_MIDDLE);
-            c.FullUpdate();
+        iv.EVT_SHOW => {
+            iv.ClearScreen();
+            _ = iv.DrawTextRect(0, 0, iv.ScreenWidth(), iv.ScreenHeight(), "Hello, world!", iv.ALIGN_CENTER | iv.VALIGN_MIDDLE);
+            iv.FullUpdate();
         },
-        c.EVT_KEYPRESS => {
-            c.CloseFont(font);
-            c.CloseApp();
+        iv.EVT_KEYPRESS => {
+            iv.CloseFont(font);
+            iv.CloseApp();
         },
         else => {},
     }
@@ -30,6 +25,6 @@ fn mainHandler(event_type: c_int, _: c_int, _: c_int) callconv(.c) c_int {
 }
 
 pub fn main() !void {
-    c.SetCurrentApplicationAttribute(c.APPLICATION_READER, 1); // hide context menu
-    c.InkViewMain(mainHandler);
+    iv.SetCurrentApplicationAttribute(iv.APPLICATION_READER, 1); // hide context menu
+    iv.InkViewMain(mainHandler);
 }
