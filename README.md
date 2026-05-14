@@ -5,7 +5,7 @@ an [SDK 6.10](https://github.com/Sean-on-Git/PocketBook-SDK/releases) subset.
 
 ## USB
 
-Build project with release containing https://github.com/ziglang/zig/pull/25592
+Build project with nightly build.
 
 ```
 zig build
