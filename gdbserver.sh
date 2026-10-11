@@ -24,7 +24,7 @@ fi
 
 /ebrmain/bin/netagent connect
 if [ $? -ne 0 ]; then
-  /ebrmain/bin/dialog 5 '' @WiFiNetworkIsNotWorking @OK
+  /ebrmain/bin/dialog 3 '' @WiFiNetworkIsNotWorking @OK
   exit 0
 fi
 

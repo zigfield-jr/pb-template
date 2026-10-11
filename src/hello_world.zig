@@ -3,10 +3,10 @@ const iv = @import("inkview");
 
 var font: [*c]iv.ifont = null;
 
-fn mainHandler(event_type: c_int, _: c_int, _: c_int) callconv(.c) c_int {
+fn mainHandler(event_type: c_int, param_one: c_int, _: c_int) callconv(.c) c_int {
     switch (event_type) {
         iv.EVT_INIT => {
-            font = iv.OpenFont("LiberationSans", 40, 1);
+            font = iv.OpenFont("DejaVuSans", 40, 1);
             iv.SetFont(font, iv.BLACK);
         },
         iv.EVT_SHOW => {
@@ -15,8 +15,15 @@ fn mainHandler(event_type: c_int, _: c_int, _: c_int) callconv(.c) c_int {
             iv.FullUpdate();
         },
         iv.EVT_KEYPRESS => {
-            iv.CloseFont(font);
-            iv.CloseApp();
+            switch (param_one) {
+                iv.IV_KEY_MENU => {
+                    iv.CloseFont(font);
+                    iv.CloseApp();
+                },
+                iv.IV_KEY_NEXT => {},
+                iv.IV_KEY_PREV => {},
+                else => {},
+            }
         },
         else => {},
     }

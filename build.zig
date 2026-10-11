@@ -29,7 +29,7 @@ pub fn build(b: *std.Build) void {
     inkview_module.linkSystemLibrary("inkview", .{});
 
     const exe = b.addExecutable(.{
-        .name = "hello_world.app",
+        .name = "template.app",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/hello_world.zig"),
             // .root_source_file = b.path("src/scroll_view.zig"),

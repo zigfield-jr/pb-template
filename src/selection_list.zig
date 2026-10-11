@@ -30,8 +30,15 @@ fn mainHandler(event_type: c_int, param_one: c_int, param_two: c_int) callconv(.
             _ = iv.SelectionList_HandleEvent(selection_list, event_type, param_one, param_two);
         },
         iv.EVT_KEYPRESS => {
-            iv.SelectionList_Destroy(selection_list);
-            iv.CloseApp();
+            switch (param_one) {
+                iv.IV_KEY_MENU => {
+                    iv.SelectionList_Destroy(selection_list);
+                    iv.CloseApp();
+                },
+                iv.IV_KEY_NEXT => {},
+                iv.IV_KEY_PREV => {},
+                else => {},
+            }
         },
         else => {},
     }

@@ -8,13 +8,13 @@ done
 
 nagtpid="$(/ebrmain/bin/netagent status | grep '^nagtpid=' | sed -e 's/^..*=//')"
 if [ $nagtpid -eq 0 ]; then
-  /ebrmain/bin/dialog 5 '' @NeedWiFiForService @Cancel @TurnOnWiFi
+  /ebrmain/bin/dialog 2 '' @NeedWiFiForService @Cancel @TurnOnWiFi
   if [ $? -eq 2 ]; then
     /ebrmain/bin/netagent net on
     if [ $? -eq 0 ]; then
-      /ebrmain/bin/dialog 5 '' @WiFiOn @OK
+      /ebrmain/bin/dialog 1 '' @WiFiOn @OK
     else
-      /ebrmain/bin/dialog 5 '' @WiFiOff @OK
+      /ebrmain/bin/dialog 3 '' @WiFiOff @OK
       exit 0
     fi
   else
@@ -24,7 +24,7 @@ fi
 
 /ebrmain/bin/netagent connect
 if [ $? -ne 0 ]; then
-  /ebrmain/bin/dialog 5 '' @WiFiNetworkIsNotWorking @OK
+  /ebrmain/bin/dialog 3 '' @WiFiNetworkIsNotWorking @OK
   exit 0
 fi
 

@@ -29,8 +29,15 @@ fn mainHandler(event_type: c_int, param_one: c_int, param_two: c_int) callconv(.
             _ = iv.ScrollView_HandleEvent(scroll_view, event_type, param_one, param_two);
         },
         iv.EVT_KEYPRESS => {
-            iv.ScrollView_Destroy(scroll_view);
-            iv.CloseApp();
+            switch (param_one) {
+                iv.IV_KEY_MENU => {
+                    iv.ScrollView_Destroy(scroll_view);
+                    iv.CloseApp();
+                },
+                iv.IV_KEY_NEXT => {},
+                iv.IV_KEY_PREV => {},
+                else => {},
+            }
         },
         else => {},
     }
