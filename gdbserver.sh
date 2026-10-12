@@ -28,6 +28,6 @@ if [ $? -ne 0 ]; then
   exit 0
 fi
 
-/ebrmain/bin/gdbserver :10002 /mnt/ext1/applications/hello_world.app &
+/ebrmain/bin/gdbserver :10002 /mnt/ext1/applications/template.app &
 
 /ebrmain/bin/iv2sh SetActiveTask "$(pidof bookshelf.app)"

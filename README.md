@@ -11,7 +11,7 @@ Build project with nightly build.
 zig build
 ```
 
-Copy `zig-out/applications/hello_world.app` to device folder `/applications`
+Copy `zig-out/applications/template.app` to device folder `/applications`
 
 Start the application.
 
