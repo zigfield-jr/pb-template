@@ -37,7 +37,7 @@ Set device IP in [GDB](.gdbinit) (or [LLDB](.lldbinit)) configuration.
 
 Run `gdb` (or `lldb`) in terminal (and project folder).
 
-On device open the task manager, `hello_world` should be listed.
+On device open the task manager, `template` should be listed.
 
 Read [more](https://github.com/pmartin/pocketbook-demo/tree/master/demo02-gdb#debbugging-session-from-the-computer).
 
