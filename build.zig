@@ -9,7 +9,7 @@ pub fn build(b: *std.Build) void {
         .abi = .gnueabi,
         .glibc_version = .{ .major = 2, .minor = 25, .patch = 0 }, // std.Io.Threaded.init_single_threaded
     });
-    const optimize = b.standardOptimizeOption(.{});
+    const optimize = if (b.standardOptimizeOption(.{})) |optimize| optimize else .debug;
 
     const inkview_header = b.addWriteFiles().add("sdk/local/include/all.h",
         \\#include <inkview.h>
@@ -31,6 +31,7 @@ pub fn build(b: *std.Build) void {
     const exe = b.addExecutable(.{
         .name = "template.app",
         .root_module = b.createModule(.{
+            // .root_source_file = b.path("src/config_editor.zig"),
             .root_source_file = b.path("src/hello_world.zig"),
             // .root_source_file = b.path("src/scroll_view.zig"),
             // .root_source_file = b.path("src/selection_list.zig"),

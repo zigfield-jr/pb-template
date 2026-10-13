@@ -1,7 +1,7 @@
 const std = @import("std");
 const iv = @import("inkview");
 
-var font: [*c]iv.ifont = null;
+var font: ?*iv.ifont = null;
 
 fn mainHandler(event_type: c_int, param_one: c_int, _: c_int) callconv(.c) c_int {
     switch (event_type) {
